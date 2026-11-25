@@ -17,6 +17,8 @@ couleurs agressives.
 - Mobile d'abord : utilisable à une main, rapide, sans zoom.
 - Choix année / groupe simple et mémorisé (on ouvre le site, on voit son EDT).
 - Affichage semaine par semaine, navigation semaine précédente / suivante / aujourd'hui.
+- Tous les départements de l'IUT : on choisit d'abord son département
+  (RT, GEII, INFO…, liste lue depuis flopEDT), puis année / groupe.
 - Mode clair / sombre, réglable à la main (auto par défaut selon le téléphone).
 - Couleurs sobres : palette douce et désaturée, lisible dans les deux modes.
 - Toutes les vues de flopEDT en lecture : par groupe, par prof, par salle,
@@ -31,9 +33,6 @@ couleurs agressives.
 - Tout ce qui demande d'être connecté à flopEDT (saisie des dispos, modifs
   d'EDT, préférences profs).
 - Comptes utilisateurs, notifications push.
-- Autres départements que RT : pas pour l'instant, mais le code garde le
-  département comme un réglage (`RT`) pour pouvoir l'ouvrir plus tard
-  sans tout réécrire.
 
 ## Ce qui serait un échec
 
@@ -76,7 +75,7 @@ navigateur, on bascule sur B sans toucher au reste.
   instantanée.
 - **Mémorisation** : groupe choisi, thème, dernière vue gardés dans le
   navigateur (localStorage). L'URL reflète la vue
-  (`#/groupe/1A-TP2/2026-W48`) pour pouvoir partager un lien.
+  (`#/RT/groupe/1A-TP2/2026-W48`) pour pouvoir partager un lien.
 
 ### Écrans
 
@@ -89,7 +88,7 @@ navigateur, on bascule sur B sans toucher au reste.
      mini-grille.
    - *Ordinateur* : grille semaine classique 5 colonnes.
 2. **Choix du groupe** — feuille qui monte du bas sur mobile : on choisit
-   d'abord l'année (BUT1 / BUT2 / BUT3), puis le groupe en gros boutons
+   le département, puis l'année (BUT1 / BUT2 / BUT3), puis le groupe en gros boutons
    (TD, puis TP). Pas de liste déroulante minuscule. Recherche rapide
    possible.
 3. **Vues prof / salle / module** — même affichage que l'EDT, mais filtré
