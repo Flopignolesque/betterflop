@@ -75,7 +75,7 @@ navigateur, on bascule sur B sans toucher au reste.
   instantanée.
 - **Mémorisation** : groupe choisi, thème, dernière vue gardés dans le
   navigateur (localStorage). L'URL reflète la vue
-  (`#/RT/groupe/1A-TP2/2026-W48`) pour pouvoir partager un lien.
+  (`#/RT/groupe/BUT1/1E/2026-W48`) pour pouvoir partager un lien.
 
 ### Écrans
 
