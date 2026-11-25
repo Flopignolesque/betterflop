@@ -11,6 +11,7 @@ export type Route =
   | { view: 'home' }
   | { view: 'timetable'; dept: string; target: Target; week: IsoWeek | null }
   | { view: 'lister'; dept: string; target: Target }
+  | { view: 'search' }
   | { view: 'settings' };
 
 const SEG: Record<Exclude<Target['kind'], 'group'>, string> = { tutor: 'prof', room: 'salle', module: 'module' };
@@ -49,6 +50,7 @@ export function parseRoute(hash: string): Route {
   const parts = hash.replace(/^#\/?/, '').split('/').filter(Boolean);
   if (parts.length === 0) return { view: 'home' };
   if (parts[0] === 'reglages') return { view: 'settings' };
+  if (parts[0] === 'chercher') return { view: 'search' };
   const dept = dec(parts[0]);
   if (parts[1] === 'lister') {
     const t = parseTarget(parts.slice(2));
@@ -65,6 +67,8 @@ export function formatRoute(r: Route): string {
       return '';
     case 'settings':
       return '#/reglages';
+    case 'search':
+      return '#/chercher';
     case 'lister':
       return '#/' + [enc(r.dept), 'lister', ...targetSegments(r.target)].join('/');
     case 'timetable':

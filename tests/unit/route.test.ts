@@ -9,6 +9,7 @@ const cases = [
   '#/RT/lister/prof/TVAL',
   '#/RT/lister/module/R101',
   '#/reglages',
+  '#/chercher',
 ];
 
 test.each(cases)('round trip %s', (h) => {

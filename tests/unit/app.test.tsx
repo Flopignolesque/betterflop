@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/preact';
 import { App } from '../../src/ui/App';
 
-test('renders app shell', () => {
+test('renders app shell with navigation', () => {
   render(<App />);
-  expect(screen.getByText('BetterFlop')).toBeInTheDocument();
+  expect(screen.getByRole('navigation')).toHaveTextContent('Mon EDT');
 });
