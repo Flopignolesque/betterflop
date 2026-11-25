@@ -3,6 +3,8 @@
 Une autre façon d'afficher les emplois du temps flopEDT de l'IUT de Blagnac
 (https://flopedt.iut-blagnac.fr), pensée d'abord pour le téléphone.
 
+![Aperçu sur mobile](docs/apercu-mobile.png)
+
 - Tous les départements (INFO, CS, GIM, RT, LPMA…), choix du groupe en trois touches, retenu pour la prochaine fois.
 - Semaine par semaine : jour par jour sur mobile (on glisse pour changer de jour), grille de la semaine sur ordi.
 - Vues par groupe, prof, salle ou module, et « Lister » : les prochains cours d'un prof, d'un module ou d'une salle.
