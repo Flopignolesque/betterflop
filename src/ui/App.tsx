@@ -7,12 +7,14 @@ import { HomeView, openGroup } from './HomeView';
 import { ListerView } from './ListerView';
 import { ModeContext, navigate, useRoute } from './hooks';
 import { SearchView } from './SearchView';
+import { SettingsView } from './SettingsView';
 import { Sheet } from './Sheet';
 import { TimetableView } from './TimetableView';
 import { useTheme } from './useTheme';
 
 export function App() {
-  const { mode } = useTheme();
+  const { mode, theme, setTheme } = useTheme();
+  const [, setPrefsVersion] = useState(0);
   const route = useRoute();
   const prefs = loadPrefs();
   const dept = route.view === 'timetable' || route.view === 'lister' ? route.dept : prefs.dept;
@@ -47,8 +49,9 @@ export function App() {
     case 'home':
       view = <HomeView />;
       break;
-    default:
-      view = <main class="main" />;
+    case 'settings':
+      view = <SettingsView theme={theme} setTheme={setTheme} onPrefsChange={() => setPrefsVersion((n) => n + 1)} />;
+      break;
   }
 
   return (

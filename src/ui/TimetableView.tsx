@@ -25,6 +25,10 @@ type Props = {
 
 const WEEKDAYS: DayRef[] = ['m', 'tu', 'w', 'th', 'f'];
 
+const pad = (n: number) => String(n).padStart(2, '0');
+export const formatStamp = (d: Date) =>
+  `${pad(d.getDate())}/${pad(d.getMonth() + 1)} à ${d.getHours()}h${pad(d.getMinutes())}`;
+
 export function targetTitle(t: Target, meta: DeptMeta, courses: Course[] = []): string {
   switch (t.kind) {
     case 'group': {
@@ -176,6 +180,11 @@ export function TimetableView({ route, meta, compact, onChangeTarget }: Props) {
           <a class="btn" href={formatRoute({ view: 'lister', dept: route.dept, target: route.target })}>
             Lister les prochains cours
           </a>
+        )}
+        {data.offlineSince && (
+          <p class="status" role="status">
+            Hors ligne — données du {formatStamp(data.offlineSince)}
+          </p>
         )}
         {!wide && !compact && !loading && !error && courses.length > 0 && (
           <DayStrip week={week} days={days} selected={day} busy={busy} now={now} onSelect={setDay} />

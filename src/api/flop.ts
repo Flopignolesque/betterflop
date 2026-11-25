@@ -17,10 +17,11 @@ const api = (path: string, params: Record<string, string | number>) =>
     .map(([k, v]) => `${k}=${encodeURIComponent(String(v))}`)
     .join('&');
 
+export const scheduledCoursesPath = (dept: string, w: IsoWeek) =>
+  api('fetch/scheduledcourses/', { dept, week: w.week, year: w.year, work_copy: 0 });
+
 export const getScheduledCourses = (dept: string, w: IsoWeek) =>
-  fetchJson<RawScheduledCourse[]>(
-    api('fetch/scheduledcourses/', { dept, week: w.week, year: w.year, work_copy: 0 }),
-  );
+  fetchJson<RawScheduledCourse[]>(scheduledCoursesPath(dept, w));
 
 export const getConstraints = (dept: string) =>
   fetchJson<RawConstraints>(api('fetch/constraints/', { dept }));

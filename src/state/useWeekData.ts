@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'preact/hooks';
-import { FlopError } from '../api/client';
-import { getConstraints, getScheduledCourses } from '../api/flop';
+import { FlopError, offlineSince } from '../api/client';
+import { getConstraints, getScheduledCourses, scheduledCoursesPath } from '../api/flop';
 import { normalizeCourses, type Course } from '../domain/courses';
 import { addWeeks, weekKey, type IsoWeek } from '../domain/week';
 
@@ -8,6 +8,8 @@ export type WeekData = {
   status: 'loading' | 'ready' | 'error';
   courses: Course[];
   error?: FlopError;
+  /** Set when flopEDT was unreachable and a saved copy is shown. */
+  offlineSince?: Date | null;
   retry(): void;
 };
 
@@ -30,7 +32,7 @@ export function useWeekData(dept: string, week: IsoWeek): WeekData {
     loadWeek(dept, week).then(
       (courses) => {
         if (!alive) return;
-        setState({ status: 'ready', courses });
+        setState({ status: 'ready', courses, offlineSince: offlineSince(scheduledCoursesPath(dept, week)) });
         getScheduledCourses(dept, addWeeks(week, 1)).catch(() => {});
       },
       (error) => alive && setState({ status: 'error', courses: [], error: error instanceof FlopError ? error : new FlopError('network') }),

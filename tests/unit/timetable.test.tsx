@@ -66,3 +66,16 @@ test('next week button moves the route forward', async () => {
   fireEvent.click(screen.getByRole('button', { name: 'Semaine suivante' }));
   expect(window.location.hash).toBe('#/RT/groupe/BUT1/1E/2026-W49');
 });
+
+test('offline: shows the saved week with its date', async () => {
+  vi.stubGlobal('fetch', fixtureFetch(routes));
+  const { unmount } = render(<App />);
+  await screen.findByRole('button', { name: /R101/ });
+  unmount();
+  clearCache();
+  vi.setSystemTime(new Date(2026, 10, 24, 12, 5));
+  vi.stubGlobal('fetch', vi.fn(async () => { throw new TypeError('offline'); }));
+  render(<App />);
+  expect(await screen.findByRole('button', { name: /R101/ })).toBeInTheDocument();
+  expect(screen.getByRole('status')).toHaveTextContent('Hors ligne — données du 24/11 à 10h00');
+});
