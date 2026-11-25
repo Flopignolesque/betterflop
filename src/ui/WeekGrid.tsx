@@ -1,6 +1,7 @@
 import { layoutDay, type Course } from '../domain/courses';
 import { dateOf, formatTime, type DayRef, type IsoWeek } from '../domain/week';
 import { CourseCard } from './CourseCard';
+import { useSwipe } from './hooks';
 import { courseState, minutesOf, sameDay } from './time';
 
 const SHORT: Record<DayRef, string> = { m: 'lun.', tu: 'mar.', w: 'mer.', th: 'jeu.', f: 'ven.', sa: 'sam.', su: 'dim.' };
@@ -14,9 +15,11 @@ type Props = {
   now: Date;
   onOpen(c: Course): void;
   onSelectDay?: (d: DayRef) => void;
+  onSwipeWeek?: (dir: 1 | -1) => void;
 };
 
-export function WeekGrid({ week, days, courses, compact, showGroups, now, onOpen, onSelectDay }: Props) {
+export function WeekGrid({ week, days, courses, compact, showGroups, now, onOpen, onSelectDay, onSwipeWeek }: Props) {
+  const swipe = useSwipe((d) => onSwipeWeek?.(d));
   const first = Math.min(480, ...courses.map((c) => c.start));
   const last = Math.max(1080, ...courses.map((c) => c.end));
   const from = Math.floor(first / 60) * 60;
@@ -32,7 +35,7 @@ export function WeekGrid({ week, days, courses, compact, showGroups, now, onOpen
   const top = (m: number) => (m - from) * ppm;
 
   return (
-    <div class={`weekgrid ${compact ? 'compact' : ''}`} style={style}>
+    <div class={`weekgrid ${compact ? 'compact' : ''}`} style={style} {...swipe}>
       <div />
       {days.map((d) => {
         const date = dateOf(week, d);

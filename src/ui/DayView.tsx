@@ -1,7 +1,7 @@
-import { useRef } from 'preact/hooks';
 import type { Course } from '../domain/courses';
 import { formatLongDay, formatTime } from '../domain/week';
 import { CourseCard } from './CourseCard';
+import { useSwipe } from './hooks';
 import { courseState, formatGap } from './time';
 
 type Props = {
@@ -14,26 +14,12 @@ type Props = {
 };
 
 export function DayView({ date, courses, showGroups, now, onOpen, onSwipe }: Props) {
-  const start = useRef<{ x: number; y: number } | null>(null);
+  const swipe = useSwipe(onSwipe);
   const sorted = [...courses].sort((a, b) => a.start - b.start || a.end - b.end);
-
-  const onTouchStart = (e: TouchEvent) => {
-    const t = e.touches[0];
-    start.current = { x: t.clientX, y: t.clientY };
-  };
-  const onTouchEnd = (e: TouchEvent) => {
-    const s = start.current;
-    start.current = null;
-    if (!s) return;
-    const t = e.changedTouches[0];
-    const dx = t.clientX - s.x;
-    const dy = t.clientY - s.y;
-    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) onSwipe(dx < 0 ? 1 : -1);
-  };
 
   let lastEnd = -1;
   return (
-    <section class="dayview" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} aria-label={formatLongDay(date)}>
+    <section class="dayview" {...swipe} aria-label={formatLongDay(date)}>
       <h2 class="day-title">{formatLongDay(date)}</h2>
       {sorted.length === 0 && (
         <div class="state">

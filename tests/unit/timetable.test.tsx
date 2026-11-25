@@ -102,3 +102,28 @@ test('coming back to the app reloads the week silently', async () => {
   await vi.waitFor(() => expect(count()).toBe(before + 1));
   expect(screen.getByRole('button', { name: /R101/ })).toBeInTheDocument();
 });
+
+const swipe = (el: Element, from: number, to: number) => {
+  fireEvent.touchStart(el, { touches: [{ clientX: from, clientY: 100 }] });
+  fireEvent.touchEnd(el, { changedTouches: [{ clientX: to, clientY: 105 }] });
+};
+
+test('swiping the day strip changes week', async () => {
+  vi.stubGlobal('fetch', fixtureFetch(routes));
+  render(<App />);
+  await screen.findByRole('button', { name: /R101/ });
+  const strip = screen.getByRole('tablist', { name: 'Jours de la semaine' });
+  swipe(strip, 300, 100);
+  expect(window.location.hash).toBe('#/RT/groupe/BUT1/1E/2026-W49');
+  swipe(screen.getByRole('tablist', { name: 'Jours de la semaine' }), 100, 300);
+  expect(window.location.hash).toBe('#/RT/groupe/BUT1/1E/2026-W48');
+});
+
+test('swiping the compact week grid changes week', async () => {
+  localStorage.setItem('betterflop:prefs', JSON.stringify({ compactWeek: true }));
+  vi.stubGlobal('fetch', fixtureFetch(routes));
+  const { container } = render(<App />);
+  await screen.findByRole('button', { name: /R101/ });
+  swipe(container.querySelector('.weekgrid')!, 300, 100);
+  expect(window.location.hash).toBe('#/RT/groupe/BUT1/1E/2026-W49');
+});

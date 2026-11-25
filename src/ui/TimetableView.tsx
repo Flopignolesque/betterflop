@@ -92,14 +92,21 @@ export function TimetableView({ route, meta, compact, onChangeTarget }: Props) {
     pendingDay.current = null;
   }, [weekKey(week)]);
 
+  const [dir, setDir] = useState<1 | -1 | 0>(0);
   const go = (w: IsoWeek, nextDay?: DayRef) => {
+    const a = dateOf(w, 'm').getTime();
+    const b = dateOf(week, 'm').getTime();
+    setDir(a > b ? 1 : a < b ? -1 : 0);
     pendingDay.current = nextDay ?? null;
     navigate({ ...route, week: w }, true);
   };
-  const swipe = (dir: 1 | -1) => {
-    const i = days.indexOf(day) + dir;
-    if (i >= 0 && i < days.length) setDay(days[i]);
-    else go(addWeeks(week, dir), dir === 1 ? 'm' : 'f');
+  const swipe = (step: 1 | -1) => {
+    const i = days.indexOf(day) + step;
+    if (i >= 0 && i < days.length) {
+      setDir(step);
+      setDay(days[i]);
+    }
+    else go(addWeeks(week, step), step === 1 ? 'm' : 'f');
   };
 
   const showGroups = route.target.kind !== 'group';
@@ -148,6 +155,7 @@ export function TimetableView({ route, meta, compact, onChangeTarget }: Props) {
         showGroups={showGroups}
         now={now}
         onOpen={setOpen}
+        onSwipeWeek={(d) => go(addWeeks(week, d))}
       />
     );
   } else {
@@ -186,11 +194,26 @@ export function TimetableView({ route, meta, compact, onChangeTarget }: Props) {
             Hors ligne — données du {formatStamp(data.offlineSince)}
           </p>
         )}
-        {!wide && !compact && !loading && !error && courses.length > 0 && (
-          <DayStrip week={week} days={days} selected={day} busy={busy} now={now} onSelect={setDay} />
+        {!wide && !compact && !error && (
+          <DayStrip
+            week={week}
+            days={days}
+            selected={day}
+            busy={busy}
+            now={now}
+            onSelect={(d) => {
+              setDir(days.indexOf(d) >= days.indexOf(day) ? 1 : -1);
+              setDay(d);
+            }}
+            onSwipeWeek={(d) => go(addWeeks(week, d))}
+          />
         )}
       </TopBar>
-      <main class="main">{body}</main>
+      <main class="main">
+        <div key={`${weekKey(week)}-${wide || compact ? '' : day}`} class={dir ? `slide slide-${dir === 1 ? 'next' : 'prev'}` : undefined}>
+          {body}
+        </div>
+      </main>
       {open && <CourseSheet course={open} tutors={meta.tutors} onClose={() => setOpen(null)} />}
     </>
   );

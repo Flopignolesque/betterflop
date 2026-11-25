@@ -897,3 +897,24 @@ a {
     font-size: 0.9375rem;
   }
 }
+
+/* ---------- Swipe transitions ---------- */
+
+.slide {
+  animation: slide-in 0.22s ease-out;
+}
+
+.slide-prev {
+  --slide-from: -28px;
+}
+
+.slide-next {
+  --slide-from: 28px;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(var(--slide-from, 0));
+    opacity: 0.4;
+  }
+}
