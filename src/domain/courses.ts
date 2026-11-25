@@ -126,3 +126,8 @@ export function courseTypeLabel(type: string): string {
   const m = /^(CM|TD|TP)\d*$/i.exec(type);
   return m ? m[1].toUpperCase() : type;
 }
+
+/** Exams and graded sessions, shown in red. */
+export function isExam(c: Pick<Course, 'graded' | 'type'>): boolean {
+  return c.graded || /^exam/i.test(c.type);
+}

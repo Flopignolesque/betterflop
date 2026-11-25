@@ -83,3 +83,11 @@ test('courseTypeLabel', () => {
   expect(courseTypeLabel('ExamTP240')).toBe('Examen');
   expect(courseTypeLabel('X90')).toBe('X90');
 });
+
+import { isExam } from '../../src/domain/courses';
+test('isExam: graded courses and exam types', () => {
+  expect(isExam({ ...rt[0], graded: true, type: 'TD' })).toBe(true);
+  expect(isExam({ ...rt[0], graded: false, type: 'Exam45' })).toBe(true);
+  expect(isExam({ ...rt[0], graded: false, type: 'ExamTP240' })).toBe(true);
+  expect(isExam({ ...rt[0], graded: false, type: 'TP240' })).toBe(false);
+});

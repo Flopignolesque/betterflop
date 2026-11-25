@@ -58,7 +58,6 @@ export function CourseSheet({ course: c, tutors, onClose }: Props) {
         <dt>Type</dt>
         <dd>
           {c.type}
-          {c.graded && ' · évalué'}
         </dd>
       </dl>
     </Sheet>
