@@ -36,6 +36,7 @@ export function App() {
           route={route}
           meta={meta}
           compact={prefs.compactWeek}
+          showMenu={prefs.showMenu}
           onChangeTarget={() => (route.target.kind === 'group' ? setPicking(true) : navigate('#/chercher'))}
         />
       );

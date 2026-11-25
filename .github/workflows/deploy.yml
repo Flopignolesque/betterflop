@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # Resto U menu refresh, Monday–Friday (UTC): ~5h40 and ~9h45 in Paris (winter time)
+    - cron: '41 4 * * 1-5'
+    - cron: '47 8 * * 1-5'
 
 permissions:
   contents: read
@@ -25,6 +29,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
+      - name: Fetch Resto U' Blagnac menu
+        run: node scripts/fetch-menu.ts public/menu.json || echo "CROUS menu unavailable, deploying without it"
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -7,6 +7,8 @@ import {
 import { formatRoute, type Route, type Target } from '../state/route';
 import { tutorName, type DeptMeta } from '../state/useDeptMeta';
 import { useWeekData } from '../state/useWeekData';
+import { menuFor, useMenu } from '../state/useMenu';
+import { MenuCard } from './MenuCard';
 import { CourseSheet } from './CourseSheet';
 import { DayStrip } from './DayStrip';
 import { DayView } from './DayView';
@@ -20,6 +22,7 @@ type Props = {
   route: TimetableRoute;
   meta: DeptMeta;
   compact: boolean;
+  showMenu: boolean;
   onChangeTarget(): void;
 };
 
@@ -68,11 +71,12 @@ function defaultDay(week: IsoWeek, days: DayRef[], now: Date): DayRef {
   return days[0];
 }
 
-export function TimetableView({ route, meta, compact, onChangeTarget }: Props) {
+export function TimetableView({ route, meta, compact, showMenu, onChangeTarget }: Props) {
   const now = useNow();
   const wide = useIsWide();
   const week = route.week ?? displayWeekFor(now);
   const data = useWeekData(route.dept, week);
+  const menu = useMenu(showMenu);
   const [open, setOpen] = useState<Course | null>(null);
 
   const filter = toFilter(route.target, meta);
@@ -158,6 +162,17 @@ export function TimetableView({ route, meta, compact, onChangeTarget }: Props) {
         onSwipeWeek={(d) => go(addWeeks(week, d))}
       />
     );
+    const today = menuFor(menu, now);
+    if (today && sameWeek(isoWeekOf(now), week)) {
+      body = (
+        <>
+          {body}
+          <div class="menu-below">
+            <MenuCard day={today} restaurant={menu!.restaurant} />
+          </div>
+        </>
+      );
+    }
   } else {
     body = (
       <DayView
@@ -167,6 +182,10 @@ export function TimetableView({ route, meta, compact, onChangeTarget }: Props) {
         now={now}
         onOpen={setOpen}
         onSwipe={swipe}
+        menu={(() => {
+          const m = menuFor(menu, dateOf(week, day));
+          return m ? { day: m, restaurant: menu!.restaurant } : null;
+        })()}
       />
     );
   }

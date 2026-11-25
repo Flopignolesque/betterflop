@@ -1,4 +1,6 @@
 import type { Course } from '../domain/courses';
+import type { DayMenu } from '../domain/crous';
+import { MenuCard } from './MenuCard';
 import { formatLongDay, formatTime } from '../domain/week';
 import { CourseCard } from './CourseCard';
 import { useSwipe } from './hooks';
@@ -11,9 +13,10 @@ type Props = {
   now: Date;
   onOpen(c: Course): void;
   onSwipe(dir: 1 | -1): void;
+  menu?: { day: DayMenu; restaurant: string } | null;
 };
 
-export function DayView({ date, courses, showGroups, now, onOpen, onSwipe }: Props) {
+export function DayView({ date, courses, showGroups, now, onOpen, onSwipe, menu }: Props) {
   const swipe = useSwipe(onSwipe);
   const sorted = [...courses].sort((a, b) => a.start - b.start || a.end - b.end);
 
@@ -43,6 +46,7 @@ export function DayView({ date, courses, showGroups, now, onOpen, onSwipe }: Pro
           </>
         );
       })}
+      {menu && <MenuCard day={menu.day} restaurant={menu.restaurant} />}
     </section>
   );
 }

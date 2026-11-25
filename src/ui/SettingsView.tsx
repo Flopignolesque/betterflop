@@ -60,7 +60,7 @@ export function SettingsView({ theme, setTheme, onPrefsChange }: Props) {
         </section>
 
         <section>
-          <h2>Affichage sur mobile</h2>
+          <h2>Affichage</h2>
           <label class="switch-row">
             <span>Semaine compacte (5 jours côte à côte)</span>
             <input
@@ -68,6 +68,17 @@ export function SettingsView({ theme, setTheme, onPrefsChange }: Props) {
               checked={prefs.compactWeek}
               onChange={(e) => {
                 savePrefs({ compactWeek: (e.target as HTMLInputElement).checked });
+                onPrefsChange();
+              }}
+            />
+          </label>
+          <label class="switch-row">
+            <span>Menu du Resto U' Blagnac sous les cours</span>
+            <input
+              type="checkbox"
+              checked={prefs.showMenu}
+              onChange={(e) => {
+                savePrefs({ showMenu: (e.target as HTMLInputElement).checked });
                 onPrefsChange();
               }}
             />

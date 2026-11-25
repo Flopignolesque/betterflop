@@ -5,11 +5,12 @@ export type Theme = 'auto' | 'light' | 'dark';
 export type Prefs = {
   theme: Theme;
   compactWeek: boolean;
+  showMenu: boolean;
   dept: string | null;
   group: GroupKey | null;
 };
 
-export const DEFAULT_PREFS: Prefs = { theme: 'auto', compactWeek: false, dept: null, group: null };
+export const DEFAULT_PREFS: Prefs = { theme: 'auto', compactWeek: false, showMenu: true, dept: null, group: null };
 
 const KEY = 'betterflop:prefs';
 
