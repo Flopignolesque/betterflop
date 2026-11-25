@@ -1,0 +1,1308 @@
+<!-- This file is part of the FlOpEDT/FlOpScheduler project.               -->
+<!-- Copyright (c) 2017                                                    -->
+<!-- Authors: Iulian Ober, Paul Renaud-Goud, Pablo Seban, et al.           -->
+<!--                                                                       -->
+<!-- This program is free software: you can redistribute it and/or modify  -->
+<!-- it under the terms of the GNU Affero General Public License as        -->
+<!-- published by the Free Software Foundation, either version 3 of the    -->
+<!-- License, or (at your option) any later version.                       -->
+<!--                                                                       -->
+<!-- This program is distributed in the hope that it will be useful, but   -->
+<!-- WITHOUT ANY WARRANTY; without even the implied warranty of            -->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      -->
+<!-- Affero General Public License for more details.                       -->
+<!--                                                                       -->
+<!-- You should have received a copy of the GNU Affero General Public      -->
+<!-- License along with this program. If not, see                          -->
+<!-- <http://www.gnu.org/licenses/>.                                       -->
+<!--                                                                       -->
+<!-- You can be released from the requirements of the license by purchasing -->
+<!-- a commercial license. Buying such a license is mandatory as soon as   -->
+<!-- you develop activities involving the FlOpEDT/FlOpScheduler software   -->
+<!-- without disclosing the source code of your own applications.          -->
+
+<!-- This file is part of the FlOpEDT/FlOpScheduler project.               -->
+<!-- Copyright (c) 2017                                                    -->
+<!-- Authors: Iulian Ober, Paul Renaud-Goud, Pablo Seban, et al.           -->
+<!--                                                                       -->
+<!-- This program is free software: you can redistribute it and/or modify  -->
+<!-- it under the terms of the GNU Affero General Public License as        -->
+<!-- published by the Free Software Foundation, either version 3 of the    -->
+<!-- License, or (at your option) any later version.                       -->
+<!--                                                                       -->
+<!-- This program is distributed in the hope that it will be useful, but   -->
+<!-- WITHOUT ANY WARRANTY; without even the implied warranty of            -->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      -->
+<!-- Affero General Public License for more details.                       -->
+<!--                                                                       -->
+<!-- You should have received a copy of the GNU Affero General Public      -->
+<!-- License along with this program. If not, see                          -->
+<!-- <http://www.gnu.org/licenses/>.                                       -->
+<!--                                                                       -->
+<!-- You can be released from the requirements of the license by purchasing-->
+<!-- a commercial license. Buying such a license is mandatory as soon as   -->
+<!-- you develop activities involving the FlOpEDT/FlOpScheduler software   -->
+<!-- without disclosing the source code of your own applications.          -->
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<style>
+</style>
+<link rel="stylesheet" href="/static/base/header.css?4" />
+<link rel="stylesheet" href="/static/TTapp/styles.css" />
+<link rel="apple-touch-icon" sizes="180x180" href=" /static/base/img/favicons/apple-touch-icon.png?v=5AeyQYqgW7">
+<link rel="icon" type="image/png" sizes="32x32" href=" /static/base/img/favicons/favicon-32x32.png?v=5AeyQYqgW7">
+<link rel="icon" type="image/png" sizes="16x16" href=" /static/base/img/favicons/favicon-16x16.png?v=5AeyQYqgW7">
+<link rel="manifest" href=" /static/base/img/favicons/site.webmanifest?v=5AeyQYqgW7">
+<link rel="mask-icon" href=" /static/base/img/favicons/safari-pinned-tab.svg?v=5AeyQYqgW7" color="#858585">
+<link rel="shortcut icon" href=" /static/base/img/favicons/favicon.ico?v=5AeyQYqgW7">
+<meta charset="UTF-8">
+<meta name="msapplication-TileColor" content="#048c04">
+<meta name="theme-color" content="#000000">
+
+<script src="/fr/jsi18n/"></script>
+
+<script src="/static/base/jquery.min.js"></script>
+
+<script src="/static/base/d3.v4.min.js"></script>
+<script src="/static/base/loader.js"></script>
+<script>var url_logo = "/static/base/logo-clock.svg?1";</script>
+<!-- script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script -->
+<title> EDT </title>
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+  
+  <div id="loader" class="loader" style="visibility:hidden;"></div>
+  
+  <!--<header>Emplois du temps</header>-->
+  
+  <nav id="menu-edt">
+    <a class="hide_this_link" id="live-logo"  style="padding: 0px 0px 0px 0px; float: left" >
+    </a>
+    <div id="full_logo">
+      <a style="text-decoration: none; font-family: inherit; color: inherit" href="/">
+          <span id="acro_logo"><span id=flopGreen >flop</span>!<span id=EDTRed >EDT</span></span>
+      </a>
+      
+      <span id="head_logo"></span>
+      
+      <a id="idea_box" target="_blank" href="https://framaforms.org/flopedt-boite-a-idees-1681143369">
+          <img src="/static/base/img/boite_a_idees_flop_2.png" width="40" alt="idea_box"/>
+            BOÎTE A IDEES
+      </a>
+      <a id="agpl" target="_blank" href="https://framagit.org/flopedt/flopedt">
+	      <img src="/static/base/agplv3-88x31.png" height="31" width="88" alt="AGPL v.3"/>
+
+      </a>
+    </div>
+
+    
+    <ul>
+      
+          
+            <li><a href="/fr/edt/RT/">Consulter</a></li>
+          
+          <li><a href="/fr/edt/RT/preferences">Préférences</a></li>
+          <li><a href="/fr/ics/RT/">iCal</a></li>
+          <li><a href="/fr/edt/RT/aide">Aide</a></li>
+          <li><a href="/fr/edt/RT/contact/">Contact</a></li>
+          <li><a href="/fr/edt/RT/modules">Modules</a></li>
+          <li><a href="/fr/roomreservation/RT/">Réservations</a></li>
+          
+      
+      <li style="float:right">
+	
+	<a href="/fr/accounts/login/?next=/fr/ics/RT/" id='sign_in'>Se connecter</a>
+	
+      </li>
+      <li style="float:right">
+      </li>
+    </ul>
+    
+  </nav>
+  
+  <section id="content">
+    
+
+
+<link rel="stylesheet" href="/static/base/better.css"/>
+
+<div id="tools-main" style="padding:10px;">
+
+    <h2>Abonnement iCal</h2>
+    <p>Copiez le lien du calendrier qui vous intéresse, et importez-le dans votre gestionnaire d'agenda préféré.</p>
+    
+    <h2>Groupes</h2>
+        <ul>
+            <h3>Structurels</h3>
+            <table>
+              <th>Promotion</th><th>Nom du groupe</th>
+              
+                  <tr>
+                     <td>BUT1</td>
+                     <td>1A</td>
+                     <td><a href="/fr/ics/RT/structural_group/534.ics">Copier ce lien - 1A</a></td>
+                  </tr>
+              
+                  <tr>
+                     <td>BUT1</td>
+                     <td>1B</td>
+                     <td><a href="/fr/ics/RT/structural_group/535.ics">Copier ce lien - 1B</a></td>
+                  </tr>
+              
+                  <tr>
+                     <td>BUT1</td>
+                     <td>1C</td>
+                     <td><a href="/fr/ics/RT/structural_group/536.ics">Copier ce lien - 1C</a></td>
+                  </tr>
+              
+                  <tr>
+                     <td>BUT1</td>
+                     <td>1D</td>
+                     <td><a href="/fr/ics/RT/structural_group/537.ics">Copier ce lien - 1D</a></td>
+                  </tr>
+              
+                  <tr>
+                     <td>BUT1</td>
+                     <td>1E</td>
+                     <td><a href="/fr/ics/RT/structural_group/538.ics">Copier ce lien - 1E</a></td>
+                  </tr>
+              
+                  <tr>
+                     <td>BUT1</td>
+                     <td>1F</td>
+                     <td><a href="/fr/ics/RT/structural_group/539.ics">Copier ce lien - 1F</a></td>
+                  </tr>
+              
+                  <tr>
+                     <td>BUT2</td>
+                     <td>2A</td>
+                     <td><a href="/fr/ics/RT/structural_group/527.ics">Copier ce lien - 2A</a></td>
+                  </tr>
+              
+                  <tr>
+                     <td>BUT2</td>
+                     <td>2B</td>
+                     <td><a href="/fr/ics/RT/structural_group/528.ics">Copier ce lien - 2B</a></td>
+                  </tr>
+              
+                  <tr>
+                     <td>BUT2</td>
+                     <td>2C</td>
+                     <td><a href="/fr/ics/RT/structural_group/529.ics">Copier ce lien - 2C</a></td>
+                  </tr>
+              
+                  <tr>
+                     <td>BUT2A</td>
+                     <td>2Aa</td>
+                     <td><a href="/fr/ics/RT/structural_group/523.ics">Copier ce lien - 2Aa</a></td>
+                  </tr>
+              
+                  <tr>
+                     <td>BUT3</td>
+                     <td>3A</td>
+                     <td><a href="/fr/ics/RT/structural_group/519.ics">Copier ce lien - 3A</a></td>
+                  </tr>
+              
+                  <tr>
+                     <td>BUT3</td>
+                     <td>3B</td>
+                     <td><a href="/fr/ics/RT/structural_group/520.ics">Copier ce lien - 3B</a></td>
+                  </tr>
+              
+                  <tr>
+                     <td>BUT3A</td>
+                     <td>3Aa</td>
+                     <td><a href="/fr/ics/RT/structural_group/515.ics">Copier ce lien - 3Aa</a></td>
+                  </tr>
+              
+                  <tr>
+                     <td>BUT3A</td>
+                     <td>3Ba</td>
+                     <td><a href="/fr/ics/RT/structural_group/516.ics">Copier ce lien - 3Ba</a></td>
+                  </tr>
+              
+            </table>
+            
+        </ul>
+
+    <h2>Enseignant⋅e⋅s</h2>
+    <ul>
+      <table>
+        <tr><th>Pseudo</th><th>Prénom </th><th>Nom </th><th>Départements</th><th>Adresse</th></tr>
+	
+	<tr>
+          <td>AAUP</td>
+          <td>Anaïs</td>
+          <td>AUPEIX</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/787.ics">Copier ce lien - AAUP</a></td>
+        </tr>
+	
+	<tr>
+          <td>ABAL</td>
+          <td>Anthony</td>
+          <td>BALITRAND</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/758.ics">Copier ce lien - ABAL</a></td>
+        </tr>
+	
+	<tr>
+          <td>ABO</td>
+          <td>Anthony</td>
+          <td>BOUERY</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/927.ics">Copier ce lien - ABO</a></td>
+        </tr>
+	
+	<tr>
+          <td>ACRT</td>
+          <td>Accueil</td>
+          <td>RT</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/928.ics">Copier ce lien - ACRT</a></td>
+        </tr>
+	
+	<tr>
+          <td>ADES</td>
+          <td>Arnaud</td>
+          <td>DESPAX</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/7.ics">Copier ce lien - ADES</a></td>
+        </tr>
+	
+	<tr>
+          <td>ADHO</td>
+          <td>Adeline</td>
+          <td>D&#x27;Hondt</td>
+          <td>INFO, RT, GIM, CS</td>
+          <td><a href="/fr/ics/RT/tutor/1111.ics">Copier ce lien - ADHO</a></td>
+        </tr>
+	
+	<tr>
+          <td>AFAR</td>
+          <td>Adrien</td>
+          <td>FARGEAS</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/516.ics">Copier ce lien - AFAR</a></td>
+        </tr>
+	
+	<tr>
+          <td>AGIL</td>
+          <td>Adrien</td>
+          <td>Gilbert</td>
+          <td>RT, GIM</td>
+          <td><a href="/fr/ics/RT/tutor/774.ics">Copier ce lien - AGIL</a></td>
+        </tr>
+	
+	<tr>
+          <td>AKB</td>
+          <td>Abdelheq</td>
+          <td>KOUADRI BOUDJELTHIA</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/1118.ics">Copier ce lien - AKB</a></td>
+        </tr>
+	
+	<tr>
+          <td>ALAB</td>
+          <td>Amira</td>
+          <td>Labidi</td>
+          <td>RT, GIM</td>
+          <td><a href="/fr/ics/RT/tutor/772.ics">Copier ce lien - ALAB</a></td>
+        </tr>
+	
+	<tr>
+          <td>ALAI</td>
+          <td>Aurélien</td>
+          <td>LAIDET</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/27.ics">Copier ce lien - ALAI</a></td>
+        </tr>
+	
+	<tr>
+          <td>AMAS</td>
+          <td>Antoine</td>
+          <td>MASSON</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/1263.ics">Copier ce lien - AMAS</a></td>
+        </tr>
+	
+	<tr>
+          <td>ARO</td>
+          <td>Alain</td>
+          <td>Roux</td>
+          <td>RT, GIM</td>
+          <td><a href="/fr/ics/RT/tutor/199.ics">Copier ce lien - ARO</a></td>
+        </tr>
+	
+	<tr>
+          <td>AV</td>
+          <td>Adrien</td>
+          <td>Van Den Bossche</td>
+          <td>RT, GIM, CS, INFO</td>
+          <td><a href="/fr/ics/RT/tutor/54.ics">Copier ce lien - AV</a></td>
+        </tr>
+	
+	<tr>
+          <td>BALB</td>
+          <td>Benoît</td>
+          <td>ALBERT</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/551.ics">Copier ce lien - BALB</a></td>
+        </tr>
+	
+	<tr>
+          <td>BDEP</td>
+          <td>DEPLECHIN</td>
+          <td>Bastien</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/245.ics">Copier ce lien - BDEP</a></td>
+        </tr>
+	
+	<tr>
+          <td>BPAT</td>
+          <td>Bruno</td>
+          <td>PATIES</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/754.ics">Copier ce lien - BPAT</a></td>
+        </tr>
+	
+	<tr>
+          <td>CBAR</td>
+          <td>Clément</td>
+          <td>BARREDA</td>
+          <td>INFO, RT</td>
+          <td><a href="/fr/ics/RT/tutor/945.ics">Copier ce lien - CBAR</a></td>
+        </tr>
+	
+	<tr>
+          <td>CBLA</td>
+          <td>Christophe</td>
+          <td>BLANCHET</td>
+          <td>INFO, RT</td>
+          <td><a href="/fr/ics/RT/tutor/925.ics">Copier ce lien - CBLA</a></td>
+        </tr>
+	
+	<tr>
+          <td>CFRI</td>
+          <td>Clément</td>
+          <td>FRISICARO</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/527.ics">Copier ce lien - CFRI</a></td>
+        </tr>
+	
+	<tr>
+          <td>CLAB</td>
+          <td>Chantal</td>
+          <td>LABAT</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/8.ics">Copier ce lien - CLAB</a></td>
+        </tr>
+	
+	<tr>
+          <td>CMAR</td>
+          <td>Christine</td>
+          <td>Marrou</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/246.ics">Copier ce lien - CMAR</a></td>
+        </tr>
+	
+	<tr>
+          <td>CMAS</td>
+          <td>Christophe</td>
+          <td>Mascret</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/903.ics">Copier ce lien - CMAS</a></td>
+        </tr>
+	
+	<tr>
+          <td>CPAL</td>
+          <td>Curtis</td>
+          <td>PALMA</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/528.ics">Copier ce lien - CPAL</a></td>
+        </tr>
+	
+	<tr>
+          <td>CSOU</td>
+          <td>Christian</td>
+          <td>SOUTOU</td>
+          <td>INFO, RT</td>
+          <td><a href="/fr/ics/RT/tutor/10.ics">Copier ce lien - CSOU</a></td>
+        </tr>
+	
+	<tr>
+          <td>CVEY</td>
+          <td>Cassandre</td>
+          <td>Vey</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/212.ics">Copier ce lien - CVEY</a></td>
+        </tr>
+	
+	<tr>
+          <td>DBRU</td>
+          <td>Damien</td>
+          <td>BRULIN</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/5.ics">Copier ce lien - DBRU</a></td>
+        </tr>
+	
+	<tr>
+          <td>DFLO</td>
+          <td>Dominique</td>
+          <td>FLORENTINY</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/749.ics">Copier ce lien - DFLO</a></td>
+        </tr>
+	
+	<tr>
+          <td>DLEN</td>
+          <td>Didier</td>
+          <td>LENQUETTE</td>
+          <td>INFO, RT</td>
+          <td><a href="/fr/ics/RT/tutor/29.ics">Copier ce lien - DLEN</a></td>
+        </tr>
+	
+	<tr>
+          <td>DTHE</td>
+          <td>THERON</td>
+          <td>Dorian</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/244.ics">Copier ce lien - DTHE</a></td>
+        </tr>
+	
+	<tr>
+          <td>EA</td>
+          <td>Evelyne</td>
+          <td>Armstrong</td>
+          <td>RT, INFO</td>
+          <td><a href="/fr/ics/RT/tutor/66.ics">Copier ce lien - EA</a></td>
+        </tr>
+	
+	<tr>
+          <td>EAGU</td>
+          <td>Éric</td>
+          <td>AGUILAR</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/552.ics">Copier ce lien - EAGU</a></td>
+        </tr>
+	
+	<tr>
+          <td>EFRE</td>
+          <td>Elisa</td>
+          <td>Fredieu</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/888.ics">Copier ce lien - EFRE</a></td>
+        </tr>
+	
+	<tr>
+          <td>EHUR</td>
+          <td>Enzo</td>
+          <td>HURTADO</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/746.ics">Copier ce lien - EHUR</a></td>
+        </tr>
+	
+	<tr>
+          <td>EPI</td>
+          <td>Éric</td>
+          <td>Piecourt</td>
+          <td>RT, GIM</td>
+          <td><a href="/fr/ics/RT/tutor/156.ics">Copier ce lien - EPI</a></td>
+        </tr>
+	
+	<tr>
+          <td>FBRE</td>
+          <td>Fabien</td>
+          <td>BREARD</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/1113.ics">Copier ce lien - FBRE</a></td>
+        </tr>
+	
+	<tr>
+          <td>FCHA</td>
+          <td>Franck</td>
+          <td>Chauvin</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/762.ics">Copier ce lien - FCHA</a></td>
+        </tr>
+	
+	<tr>
+          <td>FCR</td>
+          <td>Fabienne</td>
+          <td>CROSTA</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/784.ics">Copier ce lien - FCR</a></td>
+        </tr>
+	
+	<tr>
+          <td>FMAG</td>
+          <td>Flavien</td>
+          <td>MAGINOT</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/786.ics">Copier ce lien - FMAG</a></td>
+        </tr>
+	
+	<tr>
+          <td>GCAU</td>
+          <td>Guilhem</td>
+          <td>CAUSSE</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/229.ics">Copier ce lien - GCAU</a></td>
+        </tr>
+	
+	<tr>
+          <td>GCHA</td>
+          <td>Guesmi</td>
+          <td>CHAOUKI</td>
+          <td>RT, GIM</td>
+          <td><a href="/fr/ics/RT/tutor/599.ics">Copier ce lien - GCHA</a></td>
+        </tr>
+	
+	<tr>
+          <td>GEST</td>
+          <td>Geneviève </td>
+          <td>ESTADIEU</td>
+          <td>RT, CS</td>
+          <td><a href="/fr/ics/RT/tutor/45.ics">Copier ce lien - GEST</a></td>
+        </tr>
+	
+	<tr>
+          <td>GFAB</td>
+          <td>Gilles</td>
+          <td>FABRE</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/304.ics">Copier ce lien - GFAB</a></td>
+        </tr>
+	
+	<tr>
+          <td>GMAN</td>
+          <td>Gaël</td>
+          <td>MANSALIER</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/9.ics">Copier ce lien - GMAN</a></td>
+        </tr>
+	
+	<tr>
+          <td>GRAS</td>
+          <td>Grégory</td>
+          <td>RASSEL</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/1107.ics">Copier ce lien - GRAS</a></td>
+        </tr>
+	
+	<tr>
+          <td>HANN</td>
+          <td>Hamed</td>
+          <td>ANNTAR</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/13.ics">Copier ce lien - HANN</a></td>
+        </tr>
+	
+	<tr>
+          <td>HSIM</td>
+          <td>Hugo</td>
+          <td>SIMANCAS</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/750.ics">Copier ce lien - HSIM</a></td>
+        </tr>
+	
+	<tr>
+          <td>IRAH</td>
+          <td>Ibrahim</td>
+          <td>Rahman</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/517.ics">Copier ce lien - IRAH</a></td>
+        </tr>
+	
+	<tr>
+          <td>JESI</td>
+          <td>Jérôme</td>
+          <td>SIEURAC</td>
+          <td>LPMA, INFO, RT, GIM, CS</td>
+          <td><a href="/fr/ics/RT/tutor/227.ics">Copier ce lien - JESI</a></td>
+        </tr>
+	
+	<tr>
+          <td>JMAN</td>
+          <td>Julien</td>
+          <td>MANTEAU</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/789.ics">Copier ce lien - JMAN</a></td>
+        </tr>
+	
+	<tr>
+          <td>JMD</td>
+          <td>Jean-marc</td>
+          <td>Domercq</td>
+          <td>RT, GIM, INFO</td>
+          <td><a href="/fr/ics/RT/tutor/86.ics">Copier ce lien - JMD</a></td>
+        </tr>
+	
+	<tr>
+          <td>JMIQ</td>
+          <td>Jonathan</td>
+          <td>MIQUEL</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/31.ics">Copier ce lien - JMIQ</a></td>
+        </tr>
+	
+	<tr>
+          <td>JMTA</td>
+          <td>Jean-Marc</td>
+          <td>TARROUX</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/41.ics">Copier ce lien - JMTA</a></td>
+        </tr>
+	
+	<tr>
+          <td>JPBO</td>
+          <td></td>
+          <td>BOURGEOIS</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/553.ics">Copier ce lien - JPBO</a></td>
+        </tr>
+	
+	<tr>
+          <td>JPBU</td>
+          <td>Jean-Pierre</td>
+          <td>Buzzo</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/790.ics">Copier ce lien - JPBU</a></td>
+        </tr>
+	
+	<tr>
+          <td>JPFE</td>
+          <td>Jean-Pierre</td>
+          <td>FEWOU</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/22.ics">Copier ce lien - JPFE</a></td>
+        </tr>
+	
+	<tr>
+          <td>JSCH</td>
+          <td>Julien</td>
+          <td>SCHRIVE</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/278.ics">Copier ce lien - JSCH</a></td>
+        </tr>
+	
+	<tr>
+          <td>JSEX</td>
+          <td>John</td>
+          <td>SEXTON</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/39.ics">Copier ce lien - JSEX</a></td>
+        </tr>
+	
+	<tr>
+          <td>JTA</td>
+          <td>James</td>
+          <td>Tatler</td>
+          <td>LPMA, RT, INFO, CS, GIM</td>
+          <td><a href="/fr/ics/RT/tutor/201.ics">Copier ce lien - JTA</a></td>
+        </tr>
+	
+	<tr>
+          <td>JTAT</td>
+          <td>James</td>
+          <td>Tatler</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/901.ics">Copier ce lien - JTAT</a></td>
+        </tr>
+	
+	<tr>
+          <td>KMAS</td>
+          <td>Khalid</td>
+          <td>Massaoudi</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/900.ics">Copier ce lien - KMAS</a></td>
+        </tr>
+	
+	<tr>
+          <td>KPAU</td>
+          <td>Karlyn</td>
+          <td>PAULET</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/785.ics">Copier ce lien - KPAU</a></td>
+        </tr>
+	
+	<tr>
+          <td>LAFO</td>
+          <td>Léo</td>
+          <td>AFONSO</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/752.ics">Copier ce lien - LAFO</a></td>
+        </tr>
+	
+	<tr>
+          <td>LAND</td>
+          <td>Laurent</td>
+          <td>ANDRIEUX</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/4.ics">Copier ce lien - LAND</a></td>
+        </tr>
+	
+	<tr>
+          <td>LD</td>
+          <td>Laurent</td>
+          <td>Demay</td>
+          <td>RT, INFO</td>
+          <td><a href="/fr/ics/RT/tutor/93.ics">Copier ce lien - LD</a></td>
+        </tr>
+	
+	<tr>
+          <td>LDAM</td>
+          <td>Léa</td>
+          <td>DAMAGGIO</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/923.ics">Copier ce lien - LDAM</a></td>
+        </tr>
+	
+	<tr>
+          <td>LDEC</td>
+          <td>Léa</td>
+          <td>DECOURCELLE</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/535.ics">Copier ce lien - LDEC</a></td>
+        </tr>
+	
+	<tr>
+          <td>LGAL</td>
+          <td>Laurent</td>
+          <td>GALIBERT</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/25.ics">Copier ce lien - LGAL</a></td>
+        </tr>
+	
+	<tr>
+          <td>LM</td>
+          <td>Laetitia</td>
+          <td>Marti</td>
+          <td>RT, INFO</td>
+          <td><a href="/fr/ics/RT/tutor/96.ics">Copier ce lien - LM</a></td>
+        </tr>
+	
+	<tr>
+          <td>LNAV</td>
+          <td>Laurent</td>
+          <td>NAVARRO</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/302.ics">Copier ce lien - LNAV</a></td>
+        </tr>
+	
+	<tr>
+          <td>LVAM</td>
+          <td>Ludwig</td>
+          <td>VAMBAIRGUE</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/554.ics">Copier ce lien - LVAM</a></td>
+        </tr>
+	
+	<tr>
+          <td>MBAU</td>
+          <td>Marc</td>
+          <td>Baudoin</td>
+          <td>INFO, RT</td>
+          <td><a href="/fr/ics/RT/tutor/770.ics">Copier ce lien - MBAU</a></td>
+        </tr>
+	
+	<tr>
+          <td>MBON</td>
+          <td>Margot</td>
+          <td>BONAFOS</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/1112.ics">Copier ce lien - MBON</a></td>
+        </tr>
+	
+	<tr>
+          <td>MDEH</td>
+          <td>Marine</td>
+          <td>DEHEZ-CLEMENTI</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/1119.ics">Copier ce lien - MDEH</a></td>
+        </tr>
+	
+	<tr>
+          <td>MGUI</td>
+          <td>Maxime</td>
+          <td>Guiraud</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/911.ics">Copier ce lien - MGUI</a></td>
+        </tr>
+	
+	<tr>
+          <td>MLAS</td>
+          <td>Maxime</td>
+          <td>Lastera</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/764.ics">Copier ce lien - MLAS</a></td>
+        </tr>
+	
+	<tr>
+          <td>MVAN</td>
+          <td>Maxime</td>
+          <td>VAN-SCHENDEL</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/255.ics">Copier ce lien - MVAN</a></td>
+        </tr>
+	
+	<tr>
+          <td>NBER</td>
+          <td>Nabila</td>
+          <td>BERMAD</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/924.ics">Copier ce lien - NBER</a></td>
+        </tr>
+	
+	<tr>
+          <td>NG</td>
+          <td>Nicolas</td>
+          <td>Gonzalez</td>
+          <td>RT, GIM, INFO</td>
+          <td><a href="/fr/ics/RT/tutor/114.ics">Copier ce lien - NG</a></td>
+        </tr>
+	
+	<tr>
+          <td>NGUT</td>
+          <td>Nicolas</td>
+          <td>Gutierrez</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/262.ics">Copier ce lien - NGUT</a></td>
+        </tr>
+	
+	<tr>
+          <td>NSE</td>
+          <td>Noël</td>
+          <td>SERRES</td>
+          <td>RT, GIM</td>
+          <td><a href="/fr/ics/RT/tutor/38.ics">Copier ce lien - NSE</a></td>
+        </tr>
+	
+	<tr>
+          <td>OM</td>
+          <td>Olivier</td>
+          <td>Martin</td>
+          <td>LPMA, GIM, RT, INFO</td>
+          <td><a href="/fr/ics/RT/tutor/120.ics">Copier ce lien - OM</a></td>
+        </tr>
+	
+	<tr>
+          <td>ONEG</td>
+          <td>Olivier</td>
+          <td>NEGRO</td>
+          <td>LPMA, INFO, RT, GIM</td>
+          <td><a href="/fr/ics/RT/tutor/303.ics">Copier ce lien - ONEG</a></td>
+        </tr>
+	
+	<tr>
+          <td>PCOU</td>
+          <td>Patrick</td>
+          <td>COUFFIGNAL</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/6.ics">Copier ce lien - PCOU</a></td>
+        </tr>
+	
+	<tr>
+          <td>PDUM</td>
+          <td>Pierre</td>
+          <td>DUMAY</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/21.ics">Copier ce lien - PDUM</a></td>
+        </tr>
+	
+	<tr>
+          <td>PLEG</td>
+          <td>Patrick</td>
+          <td>LEGLUHERE</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/555.ics">Copier ce lien - PLEG</a></td>
+        </tr>
+	
+	<tr>
+          <td>QDUF</td>
+          <td>Quentin</td>
+          <td>Dufour</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/766.ics">Copier ce lien - QDUF</a></td>
+        </tr>
+	
+	<tr>
+          <td>QGAL</td>
+          <td>Quentin</td>
+          <td>GALLAND</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/744.ics">Copier ce lien - QGAL</a></td>
+        </tr>
+	
+	<tr>
+          <td>RBER</td>
+          <td>Rémi</td>
+          <td>BEROT</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/1120.ics">Copier ce lien - RBER</a></td>
+        </tr>
+	
+	<tr>
+          <td>RDAL</td>
+          <td>Réjane</td>
+          <td>Dalcé</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/522.ics">Copier ce lien - RDAL</a></td>
+        </tr>
+	
+	<tr>
+          <td>RDAS</td>
+          <td>Romain</td>
+          <td>Da Silva</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/217.ics">Copier ce lien - RDAS</a></td>
+        </tr>
+	
+	<tr>
+          <td>SA</td>
+          <td>Saadia</td>
+          <td>Albane</td>
+          <td>GIM, RT, INFO</td>
+          <td><a href="/fr/ics/RT/tutor/511.ics">Copier ce lien - SA</a></td>
+        </tr>
+	
+	<tr>
+          <td>SDUF</td>
+          <td>Stephan</td>
+          <td>DUFRECHOU</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/556.ics">Copier ce lien - SDUF</a></td>
+        </tr>
+	
+	<tr>
+          <td>SGIR</td>
+          <td>Sylvain</td>
+          <td>GIROUX</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/529.ics">Copier ce lien - SGIR</a></td>
+        </tr>
+	
+	<tr>
+          <td>SJOS</td>
+          <td>Sébastien</td>
+          <td>JOSSET</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/557.ics">Copier ce lien - SJOS</a></td>
+        </tr>
+	
+	<tr>
+          <td>SYOU</td>
+          <td>Sarah</td>
+          <td>YOUNES</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/1108.ics">Copier ce lien - SYOU</a></td>
+        </tr>
+	
+	<tr>
+          <td>TGAL</td>
+          <td>Tommy</td>
+          <td>GALET</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/747.ics">Copier ce lien - TGAL</a></td>
+        </tr>
+	
+	<tr>
+          <td>TJ</td>
+          <td>Térence</td>
+          <td>Jung</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/913.ics">Copier ce lien - TJ</a></td>
+        </tr>
+	
+	<tr>
+          <td>TKUI</td>
+          <td>Tristan</td>
+          <td>KUIPERS</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/926.ics">Copier ce lien - TKUI</a></td>
+        </tr>
+	
+	<tr>
+          <td>TPRO</td>
+          <td>Thibaut</td>
+          <td>PROBST</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/748.ics">Copier ce lien - TPRO</a></td>
+        </tr>
+	
+	<tr>
+          <td>TSCA</td>
+          <td>Tristan</td>
+          <td>SCANDELLA</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/36.ics">Copier ce lien - TSCA</a></td>
+        </tr>
+	
+	<tr>
+          <td>TVAL</td>
+          <td>Thierry</td>
+          <td>VAL</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/11.ics">Copier ce lien - TVAL</a></td>
+        </tr>
+	
+	<tr>
+          <td>TVIL</td>
+          <td>Thierry</td>
+          <td>VILLEMUR</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/12.ics">Copier ce lien - TVIL</a></td>
+        </tr>
+	
+	<tr>
+          <td>VACRT</td>
+          <td>vac</td>
+          <td>RT</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/1105.ics">Copier ce lien - VACRT</a></td>
+        </tr>
+	
+	<tr>
+          <td>VBAR</td>
+          <td>Vincent</td>
+          <td>Barbandière</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/213.ics">Copier ce lien - VBAR</a></td>
+        </tr>
+	
+	<tr>
+          <td>YBAU</td>
+          <td>Yohann</td>
+          <td>BAUZIL</td>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/tutor/14.ics">Copier ce lien - YBAU</a></td>
+        </tr>
+	
+      </table>
+    </ul>
+	
+    <h2>Salles</h2>
+    <ul>
+      <table>
+        <tr><th>Nom</th><th>Adresse</th></tr>
+        
+        <tr>
+          <td>A011</td>
+          <td><a href="/fr/ics/RT/room/107.ics">Copier ce lien - A011</a></td>
+        </tr>
+        
+        <tr>
+          <td>Amphi1</td>
+          <td><a href="/fr/ics/RT/room/18.ics">Copier ce lien - Amphi1</a></td>
+        </tr>
+        
+        <tr>
+          <td>Amphi2</td>
+          <td><a href="/fr/ics/RT/room/19.ics">Copier ce lien - Amphi2</a></td>
+        </tr>
+        
+        <tr>
+          <td>Amphi3</td>
+          <td><a href="/fr/ics/RT/room/20.ics">Copier ce lien - Amphi3</a></td>
+        </tr>
+        
+        <tr>
+          <td>Autonome</td>
+          <td><a href="/fr/ics/RT/room/232.ics">Copier ce lien - Autonome</a></td>
+        </tr>
+        
+        <tr>
+          <td>B005</td>
+          <td><a href="/fr/ics/RT/room/31.ics">Copier ce lien - B005</a></td>
+        </tr>
+        
+        <tr>
+          <td>B010</td>
+          <td><a href="/fr/ics/RT/room/35.ics">Copier ce lien - B010</a></td>
+        </tr>
+        
+        <tr>
+          <td>B115</td>
+          <td><a href="/fr/ics/RT/room/36.ics">Copier ce lien - B115</a></td>
+        </tr>
+        
+        <tr>
+          <td>D001</td>
+          <td><a href="/fr/ics/RT/room/60.ics">Copier ce lien - D001</a></td>
+        </tr>
+        
+        <tr>
+          <td>E001</td>
+          <td><a href="/fr/ics/RT/room/1.ics">Copier ce lien - E001</a></td>
+        </tr>
+        
+        <tr>
+          <td>E002</td>
+          <td><a href="/fr/ics/RT/room/2.ics">Copier ce lien - E002</a></td>
+        </tr>
+        
+        <tr>
+          <td>E003</td>
+          <td><a href="/fr/ics/RT/room/3.ics">Copier ce lien - E003</a></td>
+        </tr>
+        
+        <tr>
+          <td>E004</td>
+          <td><a href="/fr/ics/RT/room/4.ics">Copier ce lien - E004</a></td>
+        </tr>
+        
+        <tr>
+          <td>E005</td>
+          <td><a href="/fr/ics/RT/room/5.ics">Copier ce lien - E005</a></td>
+        </tr>
+        
+        <tr>
+          <td>E006</td>
+          <td><a href="/fr/ics/RT/room/70.ics">Copier ce lien - E006</a></td>
+        </tr>
+        
+        <tr>
+          <td>E007</td>
+          <td><a href="/fr/ics/RT/room/71.ics">Copier ce lien - E007</a></td>
+        </tr>
+        
+        <tr>
+          <td>E008</td>
+          <td><a href="/fr/ics/RT/room/6.ics">Copier ce lien - E008</a></td>
+        </tr>
+        
+        <tr>
+          <td>E101</td>
+          <td><a href="/fr/ics/RT/room/7.ics">Copier ce lien - E101</a></td>
+        </tr>
+        
+        <tr>
+          <td>E102</td>
+          <td><a href="/fr/ics/RT/room/8.ics">Copier ce lien - E102</a></td>
+        </tr>
+        
+        <tr>
+          <td>E103</td>
+          <td><a href="/fr/ics/RT/room/9.ics">Copier ce lien - E103</a></td>
+        </tr>
+        
+        <tr>
+          <td>E104</td>
+          <td><a href="/fr/ics/RT/room/10.ics">Copier ce lien - E104</a></td>
+        </tr>
+        
+        <tr>
+          <td>E105</td>
+          <td><a href="/fr/ics/RT/room/11.ics">Copier ce lien - E105</a></td>
+        </tr>
+        
+        <tr>
+          <td>E106</td>
+          <td><a href="/fr/ics/RT/room/12.ics">Copier ce lien - E106</a></td>
+        </tr>
+        
+        <tr>
+          <td>E206</td>
+          <td><a href="/fr/ics/RT/room/13.ics">Copier ce lien - E206</a></td>
+        </tr>
+        
+        <tr>
+          <td>E207</td>
+          <td><a href="/fr/ics/RT/room/14.ics">Copier ce lien - E207</a></td>
+        </tr>
+        
+        <tr>
+          <td>E208</td>
+          <td><a href="/fr/ics/RT/room/15.ics">Copier ce lien - E208</a></td>
+        </tr>
+        
+        <tr>
+          <td>E209</td>
+          <td><a href="/fr/ics/RT/room/16.ics">Copier ce lien - E209</a></td>
+        </tr>
+        
+        <tr>
+          <td>E210</td>
+          <td><a href="/fr/ics/RT/room/17.ics">Copier ce lien - E210</a></td>
+        </tr>
+        
+        <tr>
+          <td>E211</td>
+          <td><a href="/fr/ics/RT/room/209.ics">Copier ce lien - E211</a></td>
+        </tr>
+        
+        <tr>
+          <td>EXT</td>
+          <td><a href="/fr/ics/RT/room/218.ics">Copier ce lien - EXT</a></td>
+        </tr>
+        
+      </table>
+    </ul>
+
+    <h2>Générations prévues</h2>
+    <ul>
+      <table>
+        <tr><th>Département</th><th>Adresse</th></tr>
+        
+        <tr>
+          <td>INFO</td>
+          <td><a href="/fr/ics/RT/regen/103.ics">Copier ce lien - INFO</a></td>
+        </tr>
+        
+        <tr>
+          <td>CS</td>
+          <td><a href="/fr/ics/RT/regen/115.ics">Copier ce lien - CS</a></td>
+        </tr>
+        
+        <tr>
+          <td>GIM</td>
+          <td><a href="/fr/ics/RT/regen/116.ics">Copier ce lien - GIM</a></td>
+        </tr>
+        
+        <tr>
+          <td>RT</td>
+          <td><a href="/fr/ics/RT/regen/117.ics">Copier ce lien - RT</a></td>
+        </tr>
+        
+        <tr>
+          <td>LPMA</td>
+          <td><a href="/fr/ics/RT/regen/134.ics">Copier ce lien - LPMA</a></td>
+        </tr>
+        
+      </table>
+    </ul>
+
+</div>
+
+    <div id="side_panel" class="sidebar">
+      <a href="javascript:void(0)" class="btn_panel" onclick="closeNav()">×</a>
+       
+    </div>
+  </section>
+
+  
+  <script src="/static/base/logo.js?2"></script>
+  
+  <script>
+
+  </script>
+  
+  
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!-- This file is part of the FlOpEDT/FlOpScheduler project.               -->
+<!-- Copyright (c) 2017                                                    -->
+<!-- Authors: Iulian Ober, Paul Renaud-Goud, Pablo Seban, et al.           -->
+<!--                                                                       -->
+<!-- This program is free software: you can redistribute it and/or modify  -->
+<!-- it under the terms of the GNU Affero General Public License as        -->
+<!-- published by the Free Software Foundation, either version 3 of the    -->
+<!-- License, or (at your option) any later version.                       -->
+<!--                                                                       -->
+<!-- This program is distributed in the hope that it will be useful, but   -->
+<!-- WITHOUT ANY WARRANTY; without even the implied warranty of            -->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      -->
+<!-- Affero General Public License for more details.                       -->
+<!--                                                                       -->
+<!-- You should have received a copy of the GNU Affero General Public      -->
+<!-- License along with this program. If not, see                          -->
+<!-- <http://www.gnu.org/licenses/>.                                       -->
+<!--                                                                       -->
+<!-- You can be released from the requirements of the license by purchasing-->
+<!-- a commercial license. Buying such a license is mandatory as soon as   -->
+<!-- you develop activities involving the FlOpEDT/FlOpScheduler software   -->
+<!-- without disclosing the source code of your own applications.          -->
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+</style>
+<link rel="stylesheet" href="/static/base/header.css?4" />
+<link rel="stylesheet" href="/static/TTapp/styles.css" />
+<link rel="apple-touch-icon" sizes="180x180" href=" /static/base/img/favicons/apple-touch-icon.png?v=5AeyQYqgW7">
+<link rel="icon" type="image/png" sizes="32x32" href=" /static/base/img/favicons/favicon-32x32.png?v=5AeyQYqgW7">
+<link rel="icon" type="image/png" sizes="16x16" href=" /static/base/img/favicons/favicon-16x16.png?v=5AeyQYqgW7">
+<link rel="manifest" href=" /static/base/img/favicons/site.webmanifest?v=5AeyQYqgW7">
+<link rel="mask-icon" href=" /static/base/img/favicons/safari-pinned-tab.svg?v=5AeyQYqgW7" color="#858585">
+<link rel="shortcut icon" href=" /static/base/img/favicons/favicon.ico?v=5AeyQYqgW7">
+<meta charset="UTF-8">
+<meta name="msapplication-TileColor" content="#048c04">
+<meta name="theme-color" content="#000000">
+
+<script src="/en/jsi18n/"></script>
+
+<script src="/static/base/jquery.min.js"></script>
+
+<script src="/static/base/d3.v4.min.js"></script>
+<script src="/static/base/loader.js"></script>
+<script>var url_logo = "/static/base/logo-clock.svg?1";</script>
+<!-- script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script -->
+<title>Schedule</title>
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+  
+  <div id="loader" class="loader" style="visibility:hidden;"></div>
+  
+  <!--<header>Emplois du temps</header>-->
+  
+  <nav id="menu-edt">
+    <a class="hide_this_link" id="live-logo"  style="padding: 0px 0px 0px 0px; float: left" >
+    </a>
+    <div id="full_logo">
+      <a style="text-decoration: none; font-family: inherit; color: inherit" href="/">
+          <span id="acro_logo"><span id=flopGreen >flop</span>!<span id=EDTRed >Scheduler</span></span>
+      </a>
+      
+      <span id="head_logo"></span>
+      
+      <a id="idea_box" target="_blank" href="https://framaforms.org/flopedt-boite-a-idees-1681143369">
+          <img src="/static/base/img/boite_a_idees_flop_2.png" width="40" alt="idea_box"/>
+            BOÎTE A IDEES
+      </a>
+      <a id="agpl" target="_blank" href="https://framagit.org/flopedt/flopedt">
+	      <img src="/static/base/agplv3-88x31.png" height="31" width="88" alt="AGPL v.3"/>
+
+      </a>
+    </div>
+
+    
+    <ul>
+      
+      <li style="float:right">
+	
+	<a href="/en/accounts/login/?next=/" id='sign_in'>Sign in</a>
+	
+      </li>
+      <li style="float:right">
+      </li>
+    </ul>
+    
+  </nav>
+  
+  <section id="content">
+    
+
+
+<script type="text/javascript">
+function goTo(url){
+    location.href = url;
+};
+</script>
+<div class="dept_container">
+    <div class="dept_list">
+        <p>
+            Please choose your department : 
+        </p>
+        <ul>
+            
+            <li onclick="goTo('/en/edt/INFO/');">Informatique</li>
+            
+            <li onclick="goTo('/en/edt/CS/');">Carrières Sociales</li>
+            
+            <li onclick="goTo('/en/edt/GIM/');">Génie Industriel et Maintenance</li>
+            
+            <li onclick="goTo('/en/edt/RT/');">Réseaux et Télécommunications</li>
+            
+            <li onclick="goTo('/en/edt/LPMA/');">LP Maintenance Aéronautique</li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+    <div id="side_panel" class="sidebar">
+      <a href="javascript:void(0)" class="btn_panel" onclick="closeNav()">×</a>
+       
+    </div>
+  </section>
+
+  
+  <script src="/static/base/logo.js?2"></script>
+  
+  <script>
+
+  </script>
+  
+  
+</body>
+</html>
