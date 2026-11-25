@@ -4,6 +4,7 @@ import { useDeptMeta } from '../state/useDeptMeta';
 import { BottomNav } from './BottomNav';
 import { GroupPicker } from './GroupPicker';
 import { HomeView, openGroup } from './HomeView';
+import { ListerView } from './ListerView';
 import { ModeContext, navigate, useRoute } from './hooks';
 import { SearchView } from './SearchView';
 import { Sheet } from './Sheet';
@@ -36,6 +37,9 @@ export function App() {
           onChangeTarget={() => (route.target.kind === 'group' ? setPicking(true) : navigate('#/chercher'))}
         />
       );
+      break;
+    case 'lister':
+      view = <ListerView route={route} meta={meta} />;
       break;
     case 'search':
       view = <SearchView />;
