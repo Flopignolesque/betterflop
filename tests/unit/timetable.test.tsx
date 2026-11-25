@@ -79,3 +79,26 @@ test('offline: shows the saved week with its date', async () => {
   expect(await screen.findByRole('button', { name: /R101/ })).toBeInTheDocument();
   expect(screen.getByRole('status')).toHaveTextContent('Hors ligne — données du 24/11 à 10h00');
 });
+
+test('changing week does not pile up browser history', async () => {
+  vi.stubGlobal('fetch', fixtureFetch(routes));
+  render(<App />);
+  await screen.findByRole('button', { name: /R101/ });
+  const before = history.length;
+  fireEvent.click(screen.getByRole('button', { name: 'Semaine suivante' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Semaine suivante' }));
+  expect(history.length).toBe(before);
+});
+
+test('coming back to the app reloads the week silently', async () => {
+  const f = fixtureFetch(routes);
+  vi.stubGlobal('fetch', f);
+  render(<App />);
+  await screen.findByRole('button', { name: /R101/ });
+  const count = () => f.mock.calls.filter((c) => String(c[0]).includes('week=48')).length;
+  const before = count();
+  vi.setSystemTime(new Date(2026, 10, 24, 10, 10));
+  document.dispatchEvent(new Event('visibilitychange'));
+  await vi.waitFor(() => expect(count()).toBe(before + 1));
+  expect(screen.getByRole('button', { name: /R101/ })).toBeInTheDocument();
+});

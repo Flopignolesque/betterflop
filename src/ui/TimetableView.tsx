@@ -94,7 +94,7 @@ export function TimetableView({ route, meta, compact, onChangeTarget }: Props) {
 
   const go = (w: IsoWeek, nextDay?: DayRef) => {
     pendingDay.current = nextDay ?? null;
-    navigate({ ...route, week: w });
+    navigate({ ...route, week: w }, true);
   };
   const swipe = (dir: 1 | -1) => {
     const i = days.indexOf(day) + dir;

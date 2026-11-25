@@ -77,3 +77,18 @@ test('getScheduledCourses builds url', async () => {
     'https://flopedt.iut-blagnac.fr/fr/api/fetch/scheduledcourses/?dept=RT&week=48&year=2026&work_copy=0',
   );
 });
+
+test('cached data expires after 5 minutes so changes show up', async () => {
+  vi.useFakeTimers({ toFake: ['Date'] });
+  vi.setSystemTime(new Date(2026, 10, 24, 10, 0));
+  const f = vi.fn(async () => json([1]));
+  vi.stubGlobal('fetch', f);
+  await fetchJson('/ttl');
+  vi.setSystemTime(new Date(2026, 10, 24, 10, 4));
+  await fetchJson('/ttl');
+  expect(f).toHaveBeenCalledTimes(1);
+  vi.setSystemTime(new Date(2026, 10, 24, 10, 6));
+  await fetchJson('/ttl');
+  expect(f).toHaveBeenCalledTimes(2);
+  vi.useRealTimers();
+});

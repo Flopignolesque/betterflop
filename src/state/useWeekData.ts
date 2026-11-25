@@ -42,5 +42,18 @@ export function useWeekData(dept: string, week: IsoWeek): WeekData {
     };
   }, [key, attempt]);
 
+  // Back in the foreground: reload quietly (memory cache expires after a few minutes).
+  useEffect(() => {
+    const onVisible = () => {
+      if (document.visibilityState === 'hidden') return;
+      loadWeek(dept, week).then(
+        (courses) => setState({ status: 'ready', courses, offlineSince: offlineSince(scheduledCoursesPath(dept, week)) }),
+        () => {},
+      );
+    };
+    document.addEventListener('visibilitychange', onVisible);
+    return () => document.removeEventListener('visibilitychange', onVisible);
+  }, [key]);
+
   return { ...state, retry: () => setAttempt((n) => n + 1) };
 }

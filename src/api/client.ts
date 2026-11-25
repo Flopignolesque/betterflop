@@ -12,7 +12,9 @@ export class FlopError extends Error {
   }
 }
 
-const cache = new Map<string, Promise<unknown>>();
+/** Memory cache; entries expire so a page left open picks up timetable changes. */
+const cache = new Map<string, { at: number; p: Promise<unknown> }>();
+export const CACHE_TTL_MS = 5 * 60_000;
 const stale = new Map<string, Date>();
 
 export function clearCache(): void {
@@ -111,13 +113,13 @@ async function requestWithCopy(path: string): Promise<string> {
 function cached<T>(path: string, parse: (body: string) => T): Promise<T> {
   const url = FLOP_BASE + path;
   const hit = cache.get(url);
-  if (hit) return hit as Promise<T>;
+  if (hit && Date.now() - hit.at < CACHE_TTL_MS) return hit.p as Promise<T>;
   const p = requestWithCopy(path).then((body) => {
     const value = parse(body);
     if (persisted(path) && !stale.has(path)) writeStored(path, body);
     return value;
   });
-  cache.set(url, p);
+  cache.set(url, { at: Date.now(), p });
   p.then(
     () => stale.has(path) && cache.delete(url), // retry the network next time
     () => cache.delete(url),
